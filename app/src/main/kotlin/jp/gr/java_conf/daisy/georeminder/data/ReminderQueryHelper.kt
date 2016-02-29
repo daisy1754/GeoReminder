@@ -2,6 +2,7 @@ package jp.gr.java_conf.daisy.georeminder.data
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
+import java.util.*
 
 class ReminderQueryHelper {
 
@@ -41,5 +42,22 @@ class ReminderQueryHelper {
         values.put(title, reminder.title)
         values.put(message, reminder.message)
         db.insert(reminderTable, null, values)
+    }
+
+    fun queryReminders(db: SQLiteDatabase): List<Reminder> {
+        val cursor = db.query(reminderTable, null, null, null, null, null, null)
+        val reminders = ArrayList<Reminder>()
+        while (cursor.moveToNext()) {
+            reminders.add(Reminder(
+                    cursor.getDouble(cursor.getColumnIndex(latitude)),
+                    cursor.getDouble(cursor.getColumnIndex(longitude)),
+                    cursor.getInt(cursor.getColumnIndex(radiusMeters)),
+                    cursor.getString(cursor.getColumnIndex(startTime)),
+                    cursor.getString(cursor.getColumnIndex(endTime)),
+                    cursor.getInt(cursor.getColumnIndex(autoDismissSecs)),
+                    cursor.getString(cursor.getColumnIndex(title)),
+                    cursor.getString(cursor.getColumnIndex(message))))
+        }
+        return reminders
     }
 }
