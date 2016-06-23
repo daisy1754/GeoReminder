@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GeoReminder</string>
+    <string name="permission_need_granted">You need to grant location permission so this app can detect your location</string>
 </resources>
