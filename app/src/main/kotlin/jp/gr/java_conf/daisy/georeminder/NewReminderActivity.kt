@@ -20,6 +20,8 @@ import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.toast
+import java.text.ParseException
+import java.text.SimpleDateFormat
 
 class NewReminderActivity : AppCompatActivity() {
 
@@ -48,6 +50,15 @@ class NewReminderActivity : AppCompatActivity() {
                 }
             }
 
+            for (timeInput in arrayOf(startTimeInput, endTimeInput)) {
+                try {
+                    // Making sure format of time is valid
+                    SimpleDateFormat("hh:mm").parse(timeInput.text.toString())
+                } catch (e: ParseException) {
+                    timeInput.error = getString(R.string.invalid_time_error)
+                    return@setOnClickListener
+                }
+            }
             // TODO: add more validations for input
 
             val latitude = latitudeInput.text.toString().toDouble()
