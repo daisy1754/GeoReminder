@@ -19,6 +19,7 @@ class ReminderQueryHelper {
     fun createTable(db: SQLiteDatabase?) {
         db?.execSQL("""
             CREATE TABLE ${reminderTable}(
+                _id INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${latitude} REAL,
                 ${longitude} REAL,
                 ${radiusMeters} INTEGER,
