@@ -15,6 +15,7 @@ android {
     }
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
             minifyEnabled false
             buildConfigField "boolean", "IS_DEVELOPER", "true"
         }
