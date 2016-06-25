@@ -58,14 +58,18 @@ class ReminderQueryHelper {
 
     fun findReminderWithId(db: SQLiteDatabase, id: Long): Reminder? {
         val cursor = db.query(
-                reminderTable, null, "_id = ?", arrayOf(id.toString()), null, null, null)
+                reminderTable, null, "${BaseColumns._ID} = ?", arrayOf(id.toString()), null, null, null)
         if (cursor.moveToFirst()) {
             return toReminder(cursor)
         }
         return null
     }
 
-    fun toReminder(cursor: Cursor): Reminder {
+    fun deleteItemWithId(db: SQLiteDatabase, id: Long) {
+        db.delete(reminderTable, "${BaseColumns._ID} = ?", arrayOf(id.toString()))
+    }
+
+    private fun toReminder(cursor: Cursor): Reminder {
         return Reminder(cursor.getDouble(cursor.getColumnIndex(latitude)),
                 cursor.getDouble(cursor.getColumnIndex(longitude)),
                 cursor.getInt(cursor.getColumnIndex(radiusMeters)),
