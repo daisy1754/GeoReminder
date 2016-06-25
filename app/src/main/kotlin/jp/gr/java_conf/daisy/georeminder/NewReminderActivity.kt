@@ -23,6 +23,9 @@ import org.jetbrains.anko.toast
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
+/**
+ * Activity to register a new reminder.
+ */
 class NewReminderActivity : AppCompatActivity() {
 
     private var googleApiClient: GoogleApiClient? = null

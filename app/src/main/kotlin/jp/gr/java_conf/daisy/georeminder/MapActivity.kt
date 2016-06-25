@@ -17,6 +17,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import jp.gr.java_conf.daisy.georeminder.data.GeoSqliteOpenHelper
 import jp.gr.java_conf.daisy.georeminder.data.ReminderQueryHelper
 
+/**
+ * Activity to view all registered geofences on top of map.
+ */
 class MapActivity : AppCompatActivity() {
 
     val DEFAULT_ZOOM_LEVEL = 15.toFloat()

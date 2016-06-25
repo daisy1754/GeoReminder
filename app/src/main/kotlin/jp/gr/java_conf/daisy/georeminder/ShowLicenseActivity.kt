@@ -9,6 +9,9 @@ import android.widget.TextView
 import com.google.android.gms.common.GoogleApiAvailability
 import kotlinx.android.synthetic.main.activity_show_license.*
 
+/**
+ * Activity to show software licenses.
+ */
 class ShowLicenseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

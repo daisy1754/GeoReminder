@@ -15,6 +15,9 @@ import org.jetbrains.anko.intentFor
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Triggered when user make a transition (enter or exit geofence) to show notification.
+ */
 class GeofenceTransitionsService : IntentService("GeofenceTransitoinsService") {
 
     companion object {

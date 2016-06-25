@@ -17,6 +17,9 @@ import kotlinx.android.synthetic.main.activity_item_list.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
 
+/**
+ * Show list of all registered geofences.
+ */
 class ItemListActivity : AppCompatActivity() {
 
     val REQUEST_CODE_LOCATION = 100
