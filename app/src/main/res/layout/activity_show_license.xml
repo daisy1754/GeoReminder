@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jp.gr.java_conf.daisy.georeminder.ShowLicenseActivity">
+    <!-- License text is insanely large. Using ListView to aviod freezing UI -->
+    <ListView
+        android:id="@+id/licenseText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"/>
+</RelativeLayout>

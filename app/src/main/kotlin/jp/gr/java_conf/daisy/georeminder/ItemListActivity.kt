@@ -8,10 +8,13 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.AdapterView
 import jp.gr.java_conf.daisy.georeminder.data.GeoSqliteOpenHelper
 import jp.gr.java_conf.daisy.georeminder.data.ReminderQueryHelper
 import kotlinx.android.synthetic.main.activity_item_list.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
 
 class ItemListActivity : AppCompatActivity() {
@@ -49,6 +52,19 @@ class ItemListActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_LOCATION)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.item_list_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_show_license) {
+            startActivity(intentFor<ShowLicenseActivity>())
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onRequestPermissionsResult(
