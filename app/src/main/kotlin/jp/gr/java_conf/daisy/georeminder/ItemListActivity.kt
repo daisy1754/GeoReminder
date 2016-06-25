@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.widget.AdapterView
 import jp.gr.java_conf.daisy.georeminder.data.GeoSqliteOpenHelper
 import jp.gr.java_conf.daisy.georeminder.data.ReminderQueryHelper
 import kotlinx.android.synthetic.main.activity_item_list.*
@@ -25,8 +26,13 @@ class ItemListActivity : AppCompatActivity() {
         val queryHelper = ReminderQueryHelper()
         val db = GeoSqliteOpenHelper(this).readableDatabase
 
-        list.adapter = RemindersAdapter(queryHelper.queryReminders(db))
-
+        val reminders = queryHelper.queryReminders(db)
+        list.adapter = RemindersAdapter(reminders)
+        if (BuildConfig.IS_DEVELOPER) {
+            list.onItemClickListener = AdapterView.OnItemClickListener { listView, view, position, id ->
+                GeofenceTransitionsService.startServiceForDebugging(this, reminders.get(position).id!!)
+            }
+        }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(

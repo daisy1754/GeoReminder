@@ -1,6 +1,7 @@
 package jp.gr.java_conf.daisy.georeminder
 
 import android.app.IntentService
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
@@ -10,20 +11,40 @@ import com.google.android.gms.location.GeofencingEvent
 import jp.gr.java_conf.daisy.georeminder.data.GeoSqliteOpenHelper
 import jp.gr.java_conf.daisy.georeminder.data.Reminder
 import jp.gr.java_conf.daisy.georeminder.data.ReminderQueryHelper
+import org.jetbrains.anko.intentFor
 import java.text.SimpleDateFormat
 import java.util.*
 
 class GeofenceTransitionsService : IntentService("GeofenceTransitoinsService") {
 
-    override fun onHandleIntent(intent: Intent?) {
+    companion object {
+        const val INTENT_KEY_DEBUG = "debug"
+        const val INTENT_KEY_GEOFENCE_ID = "geofenceId"
+
+        fun startServiceForDebugging(context: Context, geofenceId: Long) {
+            context.startService(context.intentFor<GeofenceTransitionsService>(
+                    INTENT_KEY_DEBUG to true, INTENT_KEY_GEOFENCE_ID to geofenceId))
+        }
+    }
+
+    override fun onHandleIntent(intent: Intent) {
+        if (intent.getBooleanExtra(INTENT_KEY_DEBUG, false)) {
+            handleGeofenceTransition(
+                    Geofence.GEOFENCE_TRANSITION_ENTER,
+                    intent.getLongExtra(INTENT_KEY_GEOFENCE_ID, -1L))
+            return
+        }
+
         val event = GeofencingEvent.fromIntent(intent)
         if (event.hasError()) {
             Log.e(javaClass.simpleName, "Geofence error: ${event.errorCode}")
             return
         }
-
-        val transition = event.geofenceTransition
         val requestId = event.triggeringGeofences.get(0).requestId.toLong()
+        handleGeofenceTransition(event.geofenceTransition, requestId)
+    }
+
+    fun handleGeofenceTransition(transition: Int, requestId: Long) {
         val sqliteHelper = ReminderQueryHelper()
         val db = GeoSqliteOpenHelper(this).readableDatabase
         val reminder = sqliteHelper.findReminderWithId(db, requestId)

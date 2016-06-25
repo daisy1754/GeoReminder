@@ -1,7 +1,9 @@
 package jp.gr.java_conf.daisy.georeminder.data
 
 import android.content.ContentValues
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 import java.util.*
 
 class ReminderQueryHelper {
@@ -19,7 +21,7 @@ class ReminderQueryHelper {
     fun createTable(db: SQLiteDatabase?) {
         db?.execSQL("""
             CREATE TABLE ${reminderTable}(
-                _id INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${latitude} REAL,
                 ${longitude} REAL,
                 ${radiusMeters} INTEGER,
@@ -49,15 +51,7 @@ class ReminderQueryHelper {
         val cursor = db.query(reminderTable, null, null, null, null, null, null)
         val reminders = ArrayList<Reminder>()
         while (cursor.moveToNext()) {
-            reminders.add(Reminder(
-                    cursor.getDouble(cursor.getColumnIndex(latitude)),
-                    cursor.getDouble(cursor.getColumnIndex(longitude)),
-                    cursor.getInt(cursor.getColumnIndex(radiusMeters)),
-                    cursor.getString(cursor.getColumnIndex(startTime)),
-                    cursor.getString(cursor.getColumnIndex(endTime)),
-                    cursor.getInt(cursor.getColumnIndex(autoDismissSecs)),
-                    cursor.getString(cursor.getColumnIndex(title)),
-                    cursor.getString(cursor.getColumnIndex(message))))
+            reminders.add(toReminder(cursor))
         }
         return reminders
     }
@@ -66,16 +60,20 @@ class ReminderQueryHelper {
         val cursor = db.query(
                 reminderTable, null, "_id = ?", arrayOf(id.toString()), null, null, null)
         if (cursor.moveToFirst()) {
-            return Reminder(
-                    cursor.getDouble(cursor.getColumnIndex(latitude)),
-                    cursor.getDouble(cursor.getColumnIndex(longitude)),
-                    cursor.getInt(cursor.getColumnIndex(radiusMeters)),
-                    cursor.getString(cursor.getColumnIndex(startTime)),
-                    cursor.getString(cursor.getColumnIndex(endTime)),
-                    cursor.getInt(cursor.getColumnIndex(autoDismissSecs)),
-                    cursor.getString(cursor.getColumnIndex(title)),
-                    cursor.getString(cursor.getColumnIndex(message)))
+            return toReminder(cursor)
         }
         return null
+    }
+
+    fun toReminder(cursor: Cursor): Reminder {
+        return Reminder(cursor.getDouble(cursor.getColumnIndex(latitude)),
+                cursor.getDouble(cursor.getColumnIndex(longitude)),
+                cursor.getInt(cursor.getColumnIndex(radiusMeters)),
+                cursor.getString(cursor.getColumnIndex(startTime)),
+                cursor.getString(cursor.getColumnIndex(endTime)),
+                cursor.getInt(cursor.getColumnIndex(autoDismissSecs)),
+                cursor.getString(cursor.getColumnIndex(title)),
+                cursor.getString(cursor.getColumnIndex(message)),
+                cursor.getLong(cursor.getColumnIndex(BaseColumns._ID)))
     }
 }
