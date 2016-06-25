@@ -60,9 +60,15 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_show_license) {
-            startActivity(intentFor<ShowLicenseActivity>())
-            return true
+        when(item.itemId) {
+            R.id.action_geofence_map -> {
+                startActivity(intentFor<MapActivity>())
+                return true
+            }
+            R.id.action_show_license -> {
+                startActivity(intentFor<ShowLicenseActivity>())
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

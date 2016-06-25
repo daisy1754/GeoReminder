@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="jp.gr.java_conf.daisy.georeminder"
           xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -11,17 +12,20 @@
         <activity android:name=".ItemListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".NewReminderActivity"
             android:title="Add new reminder"/>
-        <activity android:name=".ShowLicenseActivity"
+        <activity
+            android:name=".ShowLicenseActivity"
             android:label="@string/license"/>
+        <activity android:name=".MapActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <service android:name=".GeofenceTransitionsService"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key"/>
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>
