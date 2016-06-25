@@ -41,7 +41,15 @@ class NewReminderActivity : AppCompatActivity() {
                 .build()
 
         saveButton.setOnClickListener {
-            // TODO: add validations for input
+            for (view in arrayOf(latitudeInput, longitudeInput, radiusInput)) {
+                if (view.text.isEmpty()) {
+                    view.error = getString(R.string.generic_empty_error)
+                    return@setOnClickListener
+                }
+            }
+
+            // TODO: add more validations for input
+
             val latitude = latitudeInput.text.toString().toDouble()
             val longitude = longitudeInput.text.toString().toDouble()
             val radiusMeters = radiusInput.text.toString().toInt()
