@@ -53,7 +53,7 @@ class NewReminderActivity : AppCompatActivity() {
             for (timeInput in arrayOf(startTimeInput, endTimeInput)) {
                 try {
                     // Making sure format of time is valid
-                    SimpleDateFormat("hh:mm").parse(timeInput.text.toString())
+                    SimpleDateFormat(Reminder.TIME_FORMAT).parse(timeInput.text.toString())
                 } catch (e: ParseException) {
                     timeInput.error = getString(R.string.invalid_time_error)
                     return@setOnClickListener

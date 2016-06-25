@@ -10,5 +10,6 @@ data class Reminder(val latitude: Double,
                     val message: String = "") {
     companion object {
         val NO_AUTO_DISMISS = -1
+        val TIME_FORMAT = "hh:mm"
     }
 }
