@@ -32,7 +32,7 @@ class ReminderQueryHelper {
         """)
     }
 
-    fun insertReminder(db: SQLiteDatabase, reminder: Reminder) {
+    fun insertReminder(db: SQLiteDatabase, reminder: Reminder) : Long {
         val values = ContentValues()
         values.put(latitude, reminder.latitude)
         values.put(longitude, reminder.longitude)
@@ -42,7 +42,7 @@ class ReminderQueryHelper {
         values.put(autoDismissSecs, reminder.autoDismissSecs)
         values.put(title, reminder.title)
         values.put(message, reminder.message)
-        db.insert(reminderTable, null, values)
+        return db.insert(reminderTable, null, values)
     }
 
     fun queryReminders(db: SQLiteDatabase): List<Reminder> {
