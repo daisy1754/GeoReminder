@@ -3,6 +3,7 @@ package jp.gr.java_conf.daisy.georeminder
 import android.app.IntentService
 import android.content.Context
 import android.content.Intent
+import android.os.Vibrator
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.util.Log
@@ -67,8 +68,13 @@ class GeofenceTransitionsService : IntentService("GeofenceTransitoinsService") {
                     .setSmallIcon(R.drawable.ic_place_white_36dp)
                     .setContentTitle(reminder.title)
                     .setContentText(reminder.message)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setVibrate(longArrayOf(300, 300))
                     .build()
             NotificationManagerCompat.from(this).notify(requestId.toInt(), notification)
+            // In my environment (Android 6.0.1), notification doesn't vibrate if phone is in
+            // silence mode. Explicitly calling vibrator here as I want phone to vibrate regardless.
+            (getSystemService(VIBRATOR_SERVICE) as Vibrator).vibrate(300)
         } else if (transition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             NotificationManagerCompat.from(this).cancelAll()
             Log.e(javaClass.simpleName, "Exit from zone. Remove notification")
