@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:paddingBottom="16dp"
+                android:paddingBottom="8dp"
                 android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <ImageView
@@ -38,9 +38,18 @@
                     android:layout_gravity="start|center_vertical"
                     android:text="@string/set_location_button"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/selectedLocationInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"/>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp" >
                 <EditText
                     android:id="@+id/startTimeInput"
                     android:layout_width="match_parent"

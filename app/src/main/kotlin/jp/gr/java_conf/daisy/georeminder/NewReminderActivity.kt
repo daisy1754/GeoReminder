@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
@@ -97,6 +98,9 @@ class NewReminderActivity : AppCompatActivity() {
                 latitude = place.latLng.latitude
                 longitude = place.latLng.longitude
                 locationButtonText.text = getString(R.string.update_location_button)
+                selectedLocationInfo.text = getString(R.string.selected_location, place.name,
+                        place.latLng.latitude, place.latLng.longitude)
+                selectedLocationInfo.visibility = View.VISIBLE
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
