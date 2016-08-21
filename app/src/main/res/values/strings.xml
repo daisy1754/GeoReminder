@@ -4,7 +4,10 @@
     <string name="license">License</string>
     <string name="permission_need_granted">You need to grant location permission so this app can detect your location</string>
     <string name="geofencing_register_error">Failed to setup geofence</string>
+    <string name="location_empty_error">Please pick location</string>
     <string name="generic_empty_error">Cannot be empty</string>
     <string name="invalid_time_error">Invalid time format</string>
     <string name="delete_confirmation_message_format">Do you want to delete %s?</string>
+    <string name="set_location_button">Set location</string>
+    <string name="update_location_button">Update location</string>
 </resources>

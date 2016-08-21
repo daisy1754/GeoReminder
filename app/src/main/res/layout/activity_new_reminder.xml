@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/rootView"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -11,28 +12,32 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
+                android:id="@+id/locationButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_place_black_24dp"
+                    android:alpha="0.7"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:id="@+id/locationButtonText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/latitudeInput"
-                    android:inputType="numberDecimal|numberSigned"
-                    android:hint="Latitude"
-                    android:layout_weight="1"/>
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/longitudeInput"
-                    android:inputType="numberDecimal|numberSigned"
-                    android:hint="Longitude"
-                    android:layout_weight="1"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="true"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="@string/set_location_button"/>
+            </LinearLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
