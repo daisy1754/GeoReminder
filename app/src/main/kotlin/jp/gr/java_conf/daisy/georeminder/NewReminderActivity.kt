@@ -1,5 +1,6 @@
 package jp.gr.java_conf.daisy.georeminder
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -27,6 +28,7 @@ class NewReminderActivity : AppCompatActivity() {
 
     private val PLACE_PICKER_REQUEST = 1
     private var googleApiClient: GoogleApiClient? = null
+    private var progressDialog: ProgressDialog? = null
     private var latitude: Double? = null
     private var longitude: Double? = null
 
@@ -47,6 +49,7 @@ class NewReminderActivity : AppCompatActivity() {
         val geofencingHelper = GeofenceHelper(this, googleApiClient)
 
         locationButton.setOnClickListener {
+            progressDialog = ProgressDialog.show(this, "", "")
             startActivityForResult(
                     PlacePicker.IntentBuilder().build(this), PLACE_PICKER_REQUEST);
         }
@@ -92,6 +95,9 @@ class NewReminderActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (progressDialog != null) {
+            progressDialog!!.dismiss()
+        }
         if (requestCode === PLACE_PICKER_REQUEST) {
             if (resultCode === RESULT_OK) {
                 val place = PlacePicker.getPlace(this, data)
