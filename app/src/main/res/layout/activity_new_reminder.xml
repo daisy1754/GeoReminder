@@ -94,6 +94,7 @@
     </ScrollView>
     <Button
         android:id="@+id/saveButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"/>
