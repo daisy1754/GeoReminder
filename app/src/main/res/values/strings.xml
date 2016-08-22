@@ -11,4 +11,5 @@
     <string name="set_location_button">Set location</string>
     <string name="update_location_button">Update location</string>
     <string name="selected_location">%1$s (%2$f, %3$f)</string>
+    <string name="no_geofence_placeholder">No reminder is registered. Click \'+\' sign to add a new one.</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.AdapterView
 import jp.gr.java_conf.daisy.georeminder.data.GeoSqliteOpenHelper
 import jp.gr.java_conf.daisy.georeminder.data.ReminderQueryHelper
@@ -40,12 +41,15 @@ class ItemListActivity : AppCompatActivity() {
                 GeofenceTransitionsService.startServiceForDebugging(this, reminders.get(position).id!!)
             }
         }
+        updateVisibility(!reminders.isEmpty())
         list.onItemLongClickListener = AdapterView.OnItemLongClickListener { listView, view, position, id ->
             AlertDialog.Builder(this)
                     .setMessage(getString(R.string.delete_confirmation_message_format, reminders.get(position).title))
                     .setPositiveButton(android.R.string.ok, { dialog, i ->
                         queryHelper.deleteItemWithId(db, reminders.get(position).id!!)
-                        list.adapter = RemindersAdapter(queryHelper.queryReminders(db))
+                        val reminders = queryHelper.queryReminders(db)
+                        list.adapter = RemindersAdapter(reminders)
+                        updateVisibility(!reminders.isEmpty())
                     })
                     .show()
             return@OnItemLongClickListener true
@@ -88,5 +92,10 @@ class ItemListActivity : AppCompatActivity() {
                         .show();
             }
         }
+    }
+
+    fun updateVisibility(hasReminder: Boolean) {
+        noGeofenceMessage.visibility = if(hasReminder) View.GONE else View.VISIBLE
+        list.visibility = if(hasReminder) View.VISIBLE else View.GONE
     }
 }
