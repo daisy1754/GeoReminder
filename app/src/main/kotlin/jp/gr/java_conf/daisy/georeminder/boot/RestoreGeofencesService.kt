@@ -20,6 +20,10 @@ class RestoreGeofencesService: IntentService("RestoreGeofencesService") {
         val reminders = queryHelper.queryReminders(db)
 
         Log.d(javaClass.simpleName, "RestoreGeofencesService start")
+        if (reminders.isEmpty()) {
+            return
+        }
+
         val googleApiClient = GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .build()
